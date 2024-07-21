@@ -1,0 +1,16 @@
+{
+	"name": "juice-shop",
+	"apps": [
+		{
+			"name": "app",
+			"image": "bkimminich/juice-shop:latest",
+			"ports": [3000]
+		}
+	],
+	"ingresses": [
+		{
+			"host": "juiceshop.demo.sturtles.in",
+			"port": 3000
+		}
+	]
+}
