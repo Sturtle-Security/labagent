@@ -3,6 +3,13 @@
 set -e
 DEBIAN_FRONTEND=noninteractive
 
+# Install microk8s
+snap install microk8s --classic --channel=1.29/stable
+microk8s status --wait-ready
+microk8s enable dns
+microk8s enable registry
+microk8s enable ingress
+
 # Install docker if not installed
 if ! [ -x "$(command -v docker)" ]; then
     echo 'Error: docker is not installed.' >&2
