@@ -45,6 +45,7 @@ app.get('/lab/running/:labName', async (req, res) => {
             running: result
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             running: false
         });
@@ -73,6 +74,7 @@ app.delete('/lab/delete/:labName', async (req, res) => {
         await k8sController.deleteLab(labName);
         res.status(200).json({});
     } catch (error) {
+        console.log(error);
         res.status(500).json({});
     }
 })

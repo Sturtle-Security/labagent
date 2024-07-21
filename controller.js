@@ -32,8 +32,8 @@ const createLab = async (payload) => {
             containerPorts.add(port);
         }
     }
-    await deleteLab(payload);
     const labName = payload.name;
+    await deleteLab(labName);
     // create replica set
     await k8sAppsApi.createNamespacedReplicaSet('default', {
         kind: 'ReplicaSet',
