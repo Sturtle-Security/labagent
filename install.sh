@@ -3,13 +3,20 @@
 set -e
 DEBIAN_FRONTEND=noninteractive
 
-# Install microk8s
-snap install microk8s --classic --channel=1.29/stable
-microk8s status --wait-ready
-microk8s enable dns
-microk8s enable registry
-microk8s enable ingress
-
+# Check if microk8s is already not installed
+if ! [ -x "$(command -v microk8s)" ]; then
+    echo 'Error: microk8s is not installed.' >&2
+    echo 'Installing microk8s...'
+    # Install microk8s
+    snap install microk8s --classic --channel=1.29/stable
+    microk8s status --wait-ready
+    microk8s enable dns
+    microk8s enable registry
+    microk8s enable ingress
+    echo 'Microk8s installed successfully.'
+else
+    echo 'Microk8s is already installed.'
+fi
 # Install docker if not installed
 if ! [ -x "$(command -v docker)" ]; then
     echo 'Error: docker is not installed.' >&2
