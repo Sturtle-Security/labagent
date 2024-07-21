@@ -15,8 +15,7 @@ const suppressError = async (fn) => {
     }
 };
 
-const deleteLab = async (payload) => {
-    const labName = payload.name;
+const deleteLab = async (labName) => {
     await suppressError(() => k8sAppsApi.deleteNamespacedReplicaSet(`${labName}-rs`, 'default'));
     await suppressError(() => k8sNetworkingApi.deleteNamespacedIngress(`${labName}-ingress`, 'default'));
     await suppressError(() => k8sCoreApi.deleteNamespacedService(`${labName}-service`, 'default'));
