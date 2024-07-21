@@ -31,4 +31,4 @@ microk8s config > ~/kubeconfig
 # Delete service if already exists
 docker rm -f labagent || true
 # Run the container
-docker run -d --name labagent -e TOKEN=$AGENT_TOKEN -v ~/kubeconfig:/app/kubeconfig.yaml ghcr.io/sturtle-security/labagent:latest
+docker run -d --name labagent -e TOKEN=$AGENT_TOKEN -p 4567:3000 -v ~/kubeconfig:/app/kubeconfig.yaml ghcr.io/sturtle-security/labagent:latest
