@@ -7,7 +7,7 @@ DEBIAN_FRONTEND=noninteractive
 if ! [ -x "$(command -v docker)" ]; then
     echo 'Error: docker is not installed.' >&2
     echo 'Installing docker...'
-    curl -fsSL https://get.docker.com | sh
+    curl -fsSL https://get.docker.com | sh -
     echo 'Docker installed successfully.'
 else
     echo 'Docker is already installed.'
