@@ -59,6 +59,7 @@ app.post('/lab/create', async (req, res) => {
             created: true
         });
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             created: false,
             error: error.message
