@@ -38,34 +38,45 @@ app.get('/', (req, res) => {
 
 
 app.get('/lab/running/:labName', async (req, res) => {
-    const labName = req.params.labName;
-    const result = await k8sController.isRunning(labName);
-    res.status(200).json({
-        running: result
-    });
+    try {
+        const labName = req.params.labName;
+        const result = await k8sController.isRunning(labName);
+        res.status(200).json({
+            running: result
+        });
+    } catch (error) {
+        res.status(500).json({
+            running: false
+        });
+    }
 })
 
 app.post('/lab/create', async (req, res) => {
     const payload = req.body;
-    const result = await k8sController.createLab(payload);
-    res.status(200).json({
-        result
-    });
+    try {
+        await k8sController.createLab(payload);
+        res.status(200).json({
+            created: true
+        });
+    } catch (error) {
+        res.status(500).json({
+            created: false,
+        });
+    }
 })
 
 app.delete('/lab/delete/:labName', async (req, res) => {
-    const labName = req.params.labName;
-    await k8sController.deleteLab(labName);
-    res.status(200).json({});
+    try {
+        const labName = req.params.labName;
+        await k8sController.deleteLab(labName);
+        res.status(200).json({});
+    } catch (error) {
+        res.status(500).json({});
+    }
 })
 
 app.get('*', (req, res) => {
     res.status(404).json({ error: "Not Found" });
-})
-
-// Global error handler
-app.use((err, req, res, next) => {
-    res.status(500).json({ error: "Unexpected Error" });
 })
 
 app.listen(PORT, () => console.log(`🚀 @ http://localhost:${PORT}`));
